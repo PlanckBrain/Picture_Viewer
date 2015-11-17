@@ -13,5 +13,3 @@ void Main(array<String^>^ args)
 	Picture_viewer::MyForm form;
 	Application::Run(%form);
 }
-
-//EDIT TEST

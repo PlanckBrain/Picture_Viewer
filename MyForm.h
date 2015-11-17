@@ -41,10 +41,13 @@ namespace Picture_viewer {
 	private: System::Windows::Forms::Button^  Next;
 
 	private: System::Windows::Forms::Button^  Previous;
+	private: System::Windows::Forms::Button^  Add;
+	private: System::Windows::Forms::Button^  Remove;
+	private: System::Windows::Forms::RichTextBox^  richTextBox1;
 
 
-	private: System::Windows::Forms::Button^  button3;
-	private: System::Windows::Forms::Button^  button4;
+
+
 
 	private:
 		/// <summary>
@@ -64,8 +67,9 @@ namespace Picture_viewer {
 			this->pictureBox3 = (gcnew System::Windows::Forms::PictureBox());
 			this->Next = (gcnew System::Windows::Forms::Button());
 			this->Previous = (gcnew System::Windows::Forms::Button());
-			this->button3 = (gcnew System::Windows::Forms::Button());
-			this->button4 = (gcnew System::Windows::Forms::Button());
+			this->Add = (gcnew System::Windows::Forms::Button());
+			this->Remove = (gcnew System::Windows::Forms::Button());
+			this->richTextBox1 = (gcnew System::Windows::Forms::RichTextBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox3))->BeginInit();
@@ -73,7 +77,7 @@ namespace Picture_viewer {
 			// 
 			// pictureBox1
 			// 
-			this->pictureBox1->Location = System::Drawing::Point(214, 88);
+			this->pictureBox1->Location = System::Drawing::Point(216, 88);
 			this->pictureBox1->Name = L"pictureBox1";
 			this->pictureBox1->Size = System::Drawing::Size(220, 197);
 			this->pictureBox1->TabIndex = 0;
@@ -81,7 +85,7 @@ namespace Picture_viewer {
 			// 
 			// pictureBox2
 			// 
-			this->pictureBox2->Location = System::Drawing::Point(556, 200);
+			this->pictureBox2->Location = System::Drawing::Point(522, 200);
 			this->pictureBox2->Name = L"pictureBox2";
 			this->pictureBox2->Size = System::Drawing::Size(91, 85);
 			this->pictureBox2->TabIndex = 1;
@@ -89,7 +93,7 @@ namespace Picture_viewer {
 			// 
 			// pictureBox3
 			// 
-			this->pictureBox3->Location = System::Drawing::Point(12, 200);
+			this->pictureBox3->Location = System::Drawing::Point(39, 200);
 			this->pictureBox3->Name = L"pictureBox3";
 			this->pictureBox3->Size = System::Drawing::Size(91, 85);
 			this->pictureBox3->TabIndex = 2;
@@ -97,7 +101,7 @@ namespace Picture_viewer {
 			// 
 			// Next
 			// 
-			this->Next->Location = System::Drawing::Point(572, 345);
+			this->Next->Location = System::Drawing::Point(538, 345);
 			this->Next->Name = L"Next";
 			this->Next->Size = System::Drawing::Size(75, 23);
 			this->Next->TabIndex = 3;
@@ -107,38 +111,48 @@ namespace Picture_viewer {
 			// 
 			// Previous
 			// 
-			this->Previous->Location = System::Drawing::Point(12, 345);
+			this->Previous->Location = System::Drawing::Point(39, 345);
 			this->Previous->Name = L"Previous";
 			this->Previous->Size = System::Drawing::Size(75, 23);
 			this->Previous->TabIndex = 4;
 			this->Previous->Text = L"Previous";
 			this->Previous->UseVisualStyleBackColor = true;
 			// 
-			// button3
+			// Add
 			// 
-			this->button3->Location = System::Drawing::Point(287, 291);
-			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(75, 23);
-			this->button3->TabIndex = 5;
-			this->button3->Text = L"button3";
-			this->button3->UseVisualStyleBackColor = true;
+			this->Add->Location = System::Drawing::Point(287, 291);
+			this->Add->Name = L"Add";
+			this->Add->Size = System::Drawing::Size(75, 23);
+			this->Add->TabIndex = 5;
+			this->Add->Text = L"Add";
+			this->Add->UseVisualStyleBackColor = true;
 			// 
-			// button4
+			// Remove
 			// 
-			this->button4->Location = System::Drawing::Point(287, 320);
-			this->button4->Name = L"button4";
-			this->button4->Size = System::Drawing::Size(75, 23);
-			this->button4->TabIndex = 6;
-			this->button4->Text = L"button4";
-			this->button4->UseVisualStyleBackColor = true;
+			this->Remove->Location = System::Drawing::Point(287, 320);
+			this->Remove->Name = L"Remove";
+			this->Remove->Size = System::Drawing::Size(75, 23);
+			this->Remove->TabIndex = 6;
+			this->Remove->Text = L"Remove";
+			this->Remove->UseVisualStyleBackColor = true;
+			// 
+			// richTextBox1
+			// 
+			this->richTextBox1->Location = System::Drawing::Point(12, 12);
+			this->richTextBox1->Name = L"richTextBox1";
+			this->richTextBox1->Size = System::Drawing::Size(133, 48);
+			this->richTextBox1->TabIndex = 7;
+			this->richTextBox1->Text = L"Author: Duncan Reeves\nDate started: 17/Nov/15\nCP2 C++";
+			this->richTextBox1->TextChanged += gcnew System::EventHandler(this, &MyForm::richTextBox1_TextChanged);
 			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(659, 483);
-			this->Controls->Add(this->button4);
-			this->Controls->Add(this->button3);
+			this->Controls->Add(this->richTextBox1);
+			this->Controls->Add(this->Remove);
+			this->Controls->Add(this->Add);
 			this->Controls->Add(this->Previous);
 			this->Controls->Add(this->Next);
 			this->Controls->Add(this->pictureBox3);
@@ -153,6 +167,7 @@ namespace Picture_viewer {
 
 		}
 #pragma endregion
+
 
 };
 }
