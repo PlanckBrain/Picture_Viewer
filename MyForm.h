@@ -34,16 +34,23 @@ namespace Picture_viewer {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::PictureBox^  pictureBox1;
+	private: System::Windows::Forms::PictureBox^  Center_pic;
+	private: System::Windows::Forms::PictureBox^  Right_pic;
+
+	private: System::Windows::Forms::PictureBox^  Left_pic;
+
 	protected:
-	private: System::Windows::Forms::PictureBox^  pictureBox2;
-	private: System::Windows::Forms::PictureBox^  pictureBox3;
+
+	protected:
+
+
 	private: System::Windows::Forms::Button^  Next;
 
 	private: System::Windows::Forms::Button^  Previous;
 	private: System::Windows::Forms::Button^  Add;
 	private: System::Windows::Forms::Button^  Remove;
 	private: System::Windows::Forms::RichTextBox^  richTextBox1;
+	private: System::Windows::Forms::TextBox^  Information_box;
 
 
 
@@ -62,42 +69,48 @@ namespace Picture_viewer {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
-			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
-			this->pictureBox3 = (gcnew System::Windows::Forms::PictureBox());
+			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
+			this->Center_pic = (gcnew System::Windows::Forms::PictureBox());
+			this->Right_pic = (gcnew System::Windows::Forms::PictureBox());
+			this->Left_pic = (gcnew System::Windows::Forms::PictureBox());
 			this->Next = (gcnew System::Windows::Forms::Button());
 			this->Previous = (gcnew System::Windows::Forms::Button());
 			this->Add = (gcnew System::Windows::Forms::Button());
 			this->Remove = (gcnew System::Windows::Forms::Button());
 			this->richTextBox1 = (gcnew System::Windows::Forms::RichTextBox());
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox3))->BeginInit();
+			this->Information_box = (gcnew System::Windows::Forms::TextBox());
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Center_pic))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Right_pic))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Left_pic))->BeginInit();
 			this->SuspendLayout();
 			// 
-			// pictureBox1
+			// Center_pic
 			// 
-			this->pictureBox1->Location = System::Drawing::Point(216, 88);
-			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->Size = System::Drawing::Size(220, 197);
-			this->pictureBox1->TabIndex = 0;
-			this->pictureBox1->TabStop = false;
+			this->Center_pic->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"Center_pic.Image")));
+			this->Center_pic->Location = System::Drawing::Point(216, 88);
+			this->Center_pic->Name = L"Center_pic";
+			this->Center_pic->Size = System::Drawing::Size(220, 197);
+			this->Center_pic->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			this->Center_pic->TabIndex = 0;
+			this->Center_pic->TabStop = false;
 			// 
-			// pictureBox2
+			// Right_pic
 			// 
-			this->pictureBox2->Location = System::Drawing::Point(522, 200);
-			this->pictureBox2->Name = L"pictureBox2";
-			this->pictureBox2->Size = System::Drawing::Size(91, 85);
-			this->pictureBox2->TabIndex = 1;
-			this->pictureBox2->TabStop = false;
+			this->Right_pic->Location = System::Drawing::Point(522, 200);
+			this->Right_pic->Name = L"Right_pic";
+			this->Right_pic->Size = System::Drawing::Size(91, 85);
+			this->Right_pic->TabIndex = 1;
+			this->Right_pic->TabStop = false;
 			// 
-			// pictureBox3
+			// Left_pic
 			// 
-			this->pictureBox3->Location = System::Drawing::Point(39, 200);
-			this->pictureBox3->Name = L"pictureBox3";
-			this->pictureBox3->Size = System::Drawing::Size(91, 85);
-			this->pictureBox3->TabIndex = 2;
-			this->pictureBox3->TabStop = false;
+			this->Left_pic->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"Left_pic.Image")));
+			this->Left_pic->Location = System::Drawing::Point(39, 200);
+			this->Left_pic->Name = L"Left_pic";
+			this->Left_pic->Size = System::Drawing::Size(91, 85);
+			this->Left_pic->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			this->Left_pic->TabIndex = 2;
+			this->Left_pic->TabStop = false;
 			// 
 			// Next
 			// 
@@ -145,25 +158,36 @@ namespace Picture_viewer {
 			this->richTextBox1->Text = L"Author: Duncan Reeves\nDate started: 17/Nov/15\nCP2 C++";
 			this->richTextBox1->TextChanged += gcnew System::EventHandler(this, &MyForm::richTextBox1_TextChanged);
 			// 
+			// Information_box
+			// 
+			this->Information_box->Location = System::Drawing::Point(216, 396);
+			this->Information_box->Name = L"Information_box";
+			this->Information_box->Size = System::Drawing::Size(220, 20);
+			this->Information_box->TabIndex = 8;
+			this->Information_box->Text = L"Album";
+			this->Information_box->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(659, 483);
+			this->Controls->Add(this->Information_box);
 			this->Controls->Add(this->richTextBox1);
 			this->Controls->Add(this->Remove);
 			this->Controls->Add(this->Add);
 			this->Controls->Add(this->Previous);
 			this->Controls->Add(this->Next);
-			this->Controls->Add(this->pictureBox3);
-			this->Controls->Add(this->pictureBox2);
-			this->Controls->Add(this->pictureBox1);
+			this->Controls->Add(this->Left_pic);
+			this->Controls->Add(this->Right_pic);
+			this->Controls->Add(this->Center_pic);
 			this->Name = L"MyForm";
 			this->Text = L"MyForm";
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox3))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Center_pic))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Right_pic))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Left_pic))->EndInit();
 			this->ResumeLayout(false);
+			this->PerformLayout();
 
 		}
 #pragma endregion
