@@ -1,8 +1,11 @@
 #pragma once
+#include "Givin.h"
+#include "Givin.cpp"
+#include "MyForm.cpp"
 
 
-
-namespace Picture_viewer {
+namespace Picture_viewer 
+{
 
 	using namespace System;
 	using namespace System::ComponentModel;
@@ -169,7 +172,6 @@ namespace Picture_viewer {
 			this->Prolog_box->Size = System::Drawing::Size(133, 48);
 			this->Prolog_box->TabIndex = 7;
 			this->Prolog_box->Text = L"Author: Duncan Reeves\nDate started: 17/Nov/15\nCP2 C++";
-			//this->Prolog_box->TextChanged += gcnew System::EventHandler(this, &MyForm::richTextBox1_TextChanged);
 			// 
 			// Album
 			// 
@@ -177,7 +179,7 @@ namespace Picture_viewer {
 			this->Album->Name = L"Album";
 			this->Album->Size = System::Drawing::Size(220, 20);
 			this->Album->TabIndex = 8;
-			this->Album->Text = L"Album";
+			this->Album->Text = L"Insert pathway here";
 			this->Album->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			// 
 			// MyForm
@@ -223,7 +225,10 @@ private: System::Void Previous_Click(System::Object^  sender, System::EventArgs^
 	//Home, hard coded
 	System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
 
-	this->Center_pic->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"Left_pic.Image")));
+	this->Left_pic->ImageLocation = "C:\\Users\\Public\\Pictures\\Sample Pictures\\Desert.jpg";
+
+	//this->Left_pic->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"Center_pic.Image")));
+	//this->Center_pic->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"Right_pic.Image")));
 
 }
 
