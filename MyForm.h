@@ -96,11 +96,14 @@ namespace Picture_viewer {
 			// 
 			// Right_pic
 			// 
+			this->Right_pic->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"Right_pic.Image")));
 			this->Right_pic->Location = System::Drawing::Point(522, 200);
 			this->Right_pic->Name = L"Right_pic";
 			this->Right_pic->Size = System::Drawing::Size(91, 85);
+			this->Right_pic->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
 			this->Right_pic->TabIndex = 1;
 			this->Right_pic->TabStop = false;
+			this->Right_pic->Click += gcnew System::EventHandler(this, &MyForm::Right_pic_Click);
 			// 
 			// Left_pic
 			// 
@@ -191,6 +194,7 @@ namespace Picture_viewer {
 
 		}
 #pragma endregion
+
 
 
 };
