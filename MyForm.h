@@ -1,7 +1,7 @@
 #pragma once
 #include "Givin.h"
-#include "Givin.cpp"
-#include "MyForm.cpp"
+//#include "Givin.cpp"
+//#include "MyForm.cpp"
 
 
 namespace Picture_viewer 
