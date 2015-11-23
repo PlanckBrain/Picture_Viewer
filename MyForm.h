@@ -1,5 +1,7 @@
 #pragma once
 
+
+
 namespace Picture_viewer {
 
 	using namespace System;
@@ -35,6 +37,10 @@ namespace Picture_viewer {
 			}
 		}
 	private: System::Windows::Forms::PictureBox^  Center_pic;
+	protected:
+
+	protected:
+
 	private: System::Windows::Forms::PictureBox^  Right_pic;
 
 	private: System::Windows::Forms::PictureBox^  Left_pic;
@@ -49,8 +55,10 @@ namespace Picture_viewer {
 	private: System::Windows::Forms::Button^  Previous;
 	private: System::Windows::Forms::Button^  Add;
 	private: System::Windows::Forms::Button^  Remove;
-	private: System::Windows::Forms::RichTextBox^  richTextBox1;
-	private: System::Windows::Forms::TextBox^  Information_box;
+	private: System::Windows::Forms::RichTextBox^  Prolog_box;
+	private: System::Windows::Forms::TextBox^  Album;
+
+
 
 
 
@@ -77,8 +85,8 @@ namespace Picture_viewer {
 			this->Previous = (gcnew System::Windows::Forms::Button());
 			this->Add = (gcnew System::Windows::Forms::Button());
 			this->Remove = (gcnew System::Windows::Forms::Button());
-			this->richTextBox1 = (gcnew System::Windows::Forms::RichTextBox());
-			this->Information_box = (gcnew System::Windows::Forms::TextBox());
+			this->Prolog_box = (gcnew System::Windows::Forms::RichTextBox());
+			this->Album = (gcnew System::Windows::Forms::TextBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Center_pic))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Right_pic))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Left_pic))->BeginInit();
@@ -114,6 +122,7 @@ namespace Picture_viewer {
 			this->Left_pic->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
 			this->Left_pic->TabIndex = 2;
 			this->Left_pic->TabStop = false;
+			this->Left_pic->Click += gcnew System::EventHandler(this, &MyForm::Left_pic_Click);
 			// 
 			// Next
 			// 
@@ -133,6 +142,7 @@ namespace Picture_viewer {
 			this->Previous->TabIndex = 4;
 			this->Previous->Text = L"Previous";
 			this->Previous->UseVisualStyleBackColor = true;
+			this->Previous->Click += gcnew System::EventHandler(this, &MyForm::Previous_Click);
 			// 
 			// Add
 			// 
@@ -152,31 +162,31 @@ namespace Picture_viewer {
 			this->Remove->Text = L"Remove";
 			this->Remove->UseVisualStyleBackColor = true;
 			// 
-			// richTextBox1
+			// Prolog_box
 			// 
-			this->richTextBox1->Location = System::Drawing::Point(12, 12);
-			this->richTextBox1->Name = L"richTextBox1";
-			this->richTextBox1->Size = System::Drawing::Size(133, 48);
-			this->richTextBox1->TabIndex = 7;
-			this->richTextBox1->Text = L"Author: Duncan Reeves\nDate started: 17/Nov/15\nCP2 C++";
-			this->richTextBox1->TextChanged += gcnew System::EventHandler(this, &MyForm::richTextBox1_TextChanged);
+			this->Prolog_box->Location = System::Drawing::Point(12, 12);
+			this->Prolog_box->Name = L"Prolog_box";
+			this->Prolog_box->Size = System::Drawing::Size(133, 48);
+			this->Prolog_box->TabIndex = 7;
+			this->Prolog_box->Text = L"Author: Duncan Reeves\nDate started: 17/Nov/15\nCP2 C++";
+			//this->Prolog_box->TextChanged += gcnew System::EventHandler(this, &MyForm::richTextBox1_TextChanged);
 			// 
-			// Information_box
+			// Album
 			// 
-			this->Information_box->Location = System::Drawing::Point(216, 396);
-			this->Information_box->Name = L"Information_box";
-			this->Information_box->Size = System::Drawing::Size(220, 20);
-			this->Information_box->TabIndex = 8;
-			this->Information_box->Text = L"Album";
-			this->Information_box->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->Album->Location = System::Drawing::Point(216, 396);
+			this->Album->Name = L"Album";
+			this->Album->Size = System::Drawing::Size(220, 20);
+			this->Album->TabIndex = 8;
+			this->Album->Text = L"Album";
+			this->Album->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(659, 483);
-			this->Controls->Add(this->Information_box);
-			this->Controls->Add(this->richTextBox1);
+			this->Controls->Add(this->Album);
+			this->Controls->Add(this->Prolog_box);
 			this->Controls->Add(this->Remove);
 			this->Controls->Add(this->Add);
 			this->Controls->Add(this->Previous);
@@ -195,6 +205,27 @@ namespace Picture_viewer {
 		}
 #pragma endregion
 
+
+
+private: System::Void Left_pic_Click(System::Object^  sender, System::EventArgs^  e) 
+{
+}
+private: System::Void Right_pic_Click(System::Object^  sender, System::EventArgs^  e) 
+{
+}
+private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) 
+{
+
+}
+private: System::Void Previous_Click(System::Object^  sender, System::EventArgs^  e) 
+{
+
+	//Home, hard coded
+	System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
+
+	this->Center_pic->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"Left_pic.Image")));
+
+}
 
 
 };
