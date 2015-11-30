@@ -230,7 +230,7 @@ private: System::Void Previous_Click(System::Object^  sender, System::EventArgs^
 	//Home, hard coded
 	System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
 
-	//this->Left_pic->ImageLocation = "C:\\Users\\Public\\Pictures\\Sample Pictures\\Desert.jpg";
+	current_position--;
 	
 	this->Left_pic->ImageLocation = PList.get(current_position-1);
 	this->Center_pic->ImageLocation = PList.get(current_position);
