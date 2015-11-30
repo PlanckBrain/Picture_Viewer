@@ -28,6 +28,11 @@ namespace Picture_viewer
 			//
 		}
 
+	//Declare PList, and current_position
+	private:
+		PictureList PList;
+		int current_position;
+
 	protected:
 		/// <summary>
 		/// Clean up any resources being used.
@@ -225,10 +230,11 @@ private: System::Void Previous_Click(System::Object^  sender, System::EventArgs^
 	//Home, hard coded
 	System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
 
-	this->Left_pic->ImageLocation = "C:\\Users\\Public\\Pictures\\Sample Pictures\\Desert.jpg";
-
-	//this->Left_pic->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"Center_pic.Image")));
-	//this->Center_pic->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"Right_pic.Image")));
+	//this->Left_pic->ImageLocation = "C:\\Users\\Public\\Pictures\\Sample Pictures\\Desert.jpg";
+	
+	this->Left_pic->ImageLocation = PList.get(current_position-1);
+	this->Center_pic->ImageLocation = PList.get(current_position);
+	this->Right_pic->ImageLocation = PList.get(current_position+1);
 
 }
 

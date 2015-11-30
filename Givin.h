@@ -6,7 +6,7 @@ struct PictureNode
 	PictureNode *next;
 	PictureNode *prev;
 };
-class PictureList
+ref class PictureList
 {
 private:
 	PictureNode *head;
