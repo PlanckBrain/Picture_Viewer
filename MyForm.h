@@ -1,7 +1,11 @@
 #pragma once
+#include <iostream>
+#include <iomanip>
 #include "Givin.h"
+
 //#include "Givin.cpp"
 //#include "MyForm.cpp"
+
 
 
 namespace Picture_viewer 
@@ -31,7 +35,11 @@ namespace Picture_viewer
 	//Declare PList, and current_position
 	private:
 		PictureList PList;
-		int current_position;
+
+
+	private: System::Windows::Forms::Button^  Add;
+
+			 int current_position;
 
 	protected:
 		/// <summary>
@@ -61,7 +69,7 @@ namespace Picture_viewer
 	private: System::Windows::Forms::Button^  Next;
 
 	private: System::Windows::Forms::Button^  Previous;
-	private: System::Windows::Forms::Button^  Add;
+
 	private: System::Windows::Forms::Button^  Remove;
 	private: System::Windows::Forms::RichTextBox^  Prolog_box;
 	private: System::Windows::Forms::TextBox^  Album;
@@ -91,10 +99,10 @@ namespace Picture_viewer
 			this->Left_pic = (gcnew System::Windows::Forms::PictureBox());
 			this->Next = (gcnew System::Windows::Forms::Button());
 			this->Previous = (gcnew System::Windows::Forms::Button());
-			this->Add = (gcnew System::Windows::Forms::Button());
 			this->Remove = (gcnew System::Windows::Forms::Button());
 			this->Prolog_box = (gcnew System::Windows::Forms::RichTextBox());
 			this->Album = (gcnew System::Windows::Forms::TextBox());
+			this->Add = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Center_pic))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Right_pic))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Left_pic))->BeginInit();
@@ -152,15 +160,6 @@ namespace Picture_viewer
 			this->Previous->UseVisualStyleBackColor = true;
 			this->Previous->Click += gcnew System::EventHandler(this, &MyForm::Previous_Click);
 			// 
-			// Add
-			// 
-			this->Add->Location = System::Drawing::Point(287, 291);
-			this->Add->Name = L"Add";
-			this->Add->Size = System::Drawing::Size(75, 23);
-			this->Add->TabIndex = 5;
-			this->Add->Text = L"Add";
-			this->Add->UseVisualStyleBackColor = true;
-			// 
 			// Remove
 			// 
 			this->Remove->Location = System::Drawing::Point(287, 320);
@@ -186,6 +185,16 @@ namespace Picture_viewer
 			this->Album->TabIndex = 8;
 			this->Album->Text = L"Insert pathway here";
 			this->Album->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			// 
+			// Add
+			// 
+			this->Add->Location = System::Drawing::Point(287, 291);
+			this->Add->Name = L"Add";
+			this->Add->Size = System::Drawing::Size(75, 23);
+			this->Add->TabIndex = 5;
+			this->Add->Text = L"Add";
+			this->Add->UseVisualStyleBackColor = true;
+			this->Add->Click += gcnew System::EventHandler(this, &MyForm::Add_Click);
 			// 
 			// MyForm
 			// 
@@ -227,15 +236,21 @@ private: System::Void button1_Click(System::Object^  sender, System::EventArgs^ 
 private: System::Void Previous_Click(System::Object^  sender, System::EventArgs^  e) 
 {
 
-	//Home, hard coded
+	
 	System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
 
-	current_position--;
+	//current_position--;
 	
-	this->Left_pic->ImageLocation = PList.get(current_position-1);
+	/*this->Left_pic->ImageLocation = PList.get(current_position-1);
 	this->Center_pic->ImageLocation = PList.get(current_position);
-	this->Right_pic->ImageLocation = PList.get(current_position+1);
+	this->Right_pic->ImageLocation = PList.get(current_position+1);*/
 
+}
+
+
+private: System::Void Add_Click(System::Object^  sender, System::EventArgs^  e) 
+{
+	//Picture thing (string, path, whatever) put here
 }
 
 

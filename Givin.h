@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+#include "MyForm.h"
+
 struct PictureNode 
 {
 	std::string picturePath;
@@ -9,8 +11,9 @@ struct PictureNode
 ref class PictureList
 {
 private:
-	PictureNode *head;
-	PictureNode *tail;
+	PictureNode *start;
+	PictureNode *current;
+	PictureNode *end;
 public:
 	PictureList();
 	~PictureList();

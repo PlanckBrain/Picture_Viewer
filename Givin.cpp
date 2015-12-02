@@ -1,17 +1,19 @@
+#include <iostream>
 #include "Givin.h"
 #include "MyForm.h"
 
 PictureList::PictureList()
 {
-	head = 0;
-	tail = 0;
+	start = NULL;
+	current = NULL;
+	end = NULL;
 }
 
 PictureList::~PictureList()
 {
 
 	//Loop through images and delete each pointer
-	PictureNode *node = head;
+	PictureNode *node = start;
 	while (node != 0)
 	{
 		delete node;
