@@ -1,12 +1,23 @@
 #pragma once
 #include <iostream>
 #include <iomanip>
+#include <msclr\marshal_cppstd.h>
+#include <fstream>
 #include "Givin.h"
 
 //#include "Givin.cpp"
 //#include "MyForm.cpp"
 
+System::String^ s2s(std::string  str) 
+{
+	return gcnew System::String(str.c_str());
+}
 
+
+std::string s2s(System::String^ str) 
+{
+	return msclr::interop::marshal_as<std::string>(str);
+}
 
 namespace Picture_viewer 
 {
@@ -72,7 +83,8 @@ namespace Picture_viewer
 
 	private: System::Windows::Forms::Button^  Remove;
 	private: System::Windows::Forms::RichTextBox^  Prolog_box;
-	private: System::Windows::Forms::TextBox^  Album;
+	private: System::Windows::Forms::TextBox^  Txt_newpath;
+
 
 
 
@@ -101,7 +113,7 @@ namespace Picture_viewer
 			this->Previous = (gcnew System::Windows::Forms::Button());
 			this->Remove = (gcnew System::Windows::Forms::Button());
 			this->Prolog_box = (gcnew System::Windows::Forms::RichTextBox());
-			this->Album = (gcnew System::Windows::Forms::TextBox());
+			this->Txt_newpath = (gcnew System::Windows::Forms::TextBox());
 			this->Add = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Center_pic))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Right_pic))->BeginInit();
@@ -177,14 +189,14 @@ namespace Picture_viewer
 			this->Prolog_box->TabIndex = 7;
 			this->Prolog_box->Text = L"Author: Duncan Reeves\nDate started: 17/Nov/15\nCP2 C++";
 			// 
-			// Album
+			// Txt_newpath
 			// 
-			this->Album->Location = System::Drawing::Point(216, 396);
-			this->Album->Name = L"Album";
-			this->Album->Size = System::Drawing::Size(220, 20);
-			this->Album->TabIndex = 8;
-			this->Album->Text = L"Insert pathway here";
-			this->Album->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->Txt_newpath->Location = System::Drawing::Point(216, 396);
+			this->Txt_newpath->Name = L"Txt_newpath";
+			this->Txt_newpath->Size = System::Drawing::Size(220, 20);
+			this->Txt_newpath->TabIndex = 8;
+			this->Txt_newpath->Text = L"Insert pathway here";
+			this->Txt_newpath->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			// 
 			// Add
 			// 
@@ -201,7 +213,7 @@ namespace Picture_viewer
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(659, 483);
-			this->Controls->Add(this->Album);
+			this->Controls->Add(this->Txt_newpath);
 			this->Controls->Add(this->Prolog_box);
 			this->Controls->Add(this->Remove);
 			this->Controls->Add(this->Add);
@@ -235,24 +247,69 @@ private: System::Void button1_Click(System::Object^  sender, System::EventArgs^ 
 }
 private: System::Void Previous_Click(System::Object^  sender, System::EventArgs^  e) 
 {
+	if (PList.current->prev == NULL)
+	{
+
+	}else
+	 {
+		 PList.current = PList.current->prev;
+	 }
 
 	
-	System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
+	this->Center_pic->ImageLocation = s2s(PList.current->picturePath);
+	this->Left_pic->ImageLocation = s2s(PList.current->prev->picturePath);
+	this->Right_pic->ImageLocation = s2s(PList.current->next->picturePath);
 
+	
+	
+
+
+	//System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
 	//current_position--;
-	
-	/*this->Left_pic->ImageLocation = PList.get(current_position-1);
-	this->Center_pic->ImageLocation = PList.get(current_position);
-	this->Right_pic->ImageLocation = PList.get(current_position+1);*/
+	//this->Left_pic->ImageLocation = PList.get(current_position-1);
+	//this->Center_pic->ImageLocation = PList.get(current_position);
+	//this->Right_pic->ImageLocation = PList.get(current_position+1);
 
 }
 
 
 private: System::Void Add_Click(System::Object^  sender, System::EventArgs^  e) 
 {
-	//Picture thing (string, path, whatever) put here
-}
+	PictureNode Temp;
 
+	//
+	//Make sure there is suff in the Txt_newpath textbox
+	//
+	Temp.picturePath = s2s(Txt_newpath-> Text);
+
+	if (PList.current == NULL)
+	{
+		PList.current = &Temp;
+		PList.start = &Temp;
+		PList.end = &Temp;
+		Temp.next = NULL;
+		Temp.prev = NULL;
+		//
+		//Temp.filepath = filename;
+		//
+	} else 
+	 {
+		 if (PList.current == PList.start)
+		 {
+			 PList.start = &Temp;
+			 Temp.prev = NULL;
+			 Temp.next = PList.current;
+			 PList.current->prev = &Temp;
+		 }
+		 else
+		 {
+			 PList.current->prev->next = &Temp;
+			 Temp.prev = PList.current->prev;
+			 PList.current->prev = &Temp;
+			 Temp.next = PList.current;
+		 }
+	 }
+}
 
 };
 }

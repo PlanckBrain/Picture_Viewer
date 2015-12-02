@@ -10,7 +10,7 @@ struct PictureNode
 };
 ref class PictureList
 {
-private:
+public:
 	PictureNode *start;
 	PictureNode *current;
 	PictureNode *end;
