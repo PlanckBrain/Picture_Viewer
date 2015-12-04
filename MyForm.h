@@ -43,11 +43,11 @@ namespace Picture_viewer
 
 	//Declare PList, and current_position
 	private:
-		int a;
 		PictureList PList;
 
 
 	private: System::Windows::Forms::Button^  Add;
+	private: System::Windows::Forms::OpenFileDialog^  openFileDialog1;
 
 			 int current_position;
 
@@ -114,6 +114,7 @@ namespace Picture_viewer
 			this->Prolog_box = (gcnew System::Windows::Forms::RichTextBox());
 			this->Txt_newpath = (gcnew System::Windows::Forms::TextBox());
 			this->Add = (gcnew System::Windows::Forms::Button());
+			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Center_pic))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Right_pic))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Left_pic))->BeginInit();
@@ -207,6 +208,10 @@ namespace Picture_viewer
 			this->Add->UseVisualStyleBackColor = true;
 			this->Add->Click += gcnew System::EventHandler(this, &MyForm::Add_Click);
 			// 
+			// openFileDialog1
+			// 
+			this->openFileDialog1->FileName = L"openFileDialog1";
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -250,13 +255,18 @@ private: System::Void button1_Click(System::Object^  sender, System::EventArgs^ 
 
 	PList.current = PList.current->next;
 
-	//Gives each picture box the image
+	//***********Gives each picture box an image***********//
+	//Center picture box
 	this->Center_pic->ImageLocation = s2s(PList.current->picturePath);
-	this->Right_pic->ImageLocation = s2s(PList.current->next->picturePath);
-	if (PList.current->prev != NULL)
+	//Left picture box
+	this->Left_pic->ImageLocation = s2s(PList.current->prev->picturePath);
+	//Right (if able)
+	if (PList.current->next != NULL)
 	{
-		this->Left_pic->ImageLocation = s2s(PList.current->prev->picturePath);
+		this->Right_pic->ImageLocation = s2s(PList.current->next->picturePath);
 	}
+	else //Gives an empty box
+		this->Right_pic->ImageLocation = "";
 }
 private: System::Void Previous_Click(System::Object^  sender, System::EventArgs^  e) 
 {
@@ -267,14 +277,19 @@ private: System::Void Previous_Click(System::Object^  sender, System::EventArgs^
 
 	PList.current = PList.current->prev;
 
-	//Gives each picture box the image
+	//***********Gives each picture box an image***********//
+	//Center picture box
 	this->Center_pic->ImageLocation = s2s(PList.current->picturePath);
-	this->Left_pic->ImageLocation = s2s(PList.current->prev->picturePath);
-	if (PList.current->next != NULL)
+	//Right picture box
+	this->Right_pic->ImageLocation = s2s(PList.current->next->picturePath);
+	//Left picture box (if able)
+	if (PList.current->prev != NULL)
 	{
-		this->Right_pic->ImageLocation = s2s(PList.current->next->picturePath);
+		this->Left_pic->ImageLocation = s2s(PList.current->prev->picturePath);
 	}
-	
+	else //Gives an empty box
+		this->Left_pic->ImageLocation = "";
+
 	
 	
 
@@ -290,40 +305,52 @@ private: System::Void Previous_Click(System::Object^  sender, System::EventArgs^
 
 private: System::Void Add_Click(System::Object^  sender, System::EventArgs^  e) 
 {
-	PictureNode Temp;
+	PictureNode * Temp = new PictureNode();
 
-	//
-	//Make sure there is suff in the Txt_newpath textbox
-	//
-	Temp.picturePath = s2s(Txt_newpath-> Text);
+	//Lets user choose a filepath to a picture, and saves it as a std::string
+	this->openFileDialog1->ShowDialog();
+	Temp->picturePath = s2s(this->openFileDialog1->FileName);
+	//Temp.picturePath = s2s(Txt_newpath-> Text);
 
 	if (PList.current == NULL)
 	{
-		PList.current = &Temp;
-		PList.start = &Temp;
-		PList.end = &Temp;
-		Temp.next = NULL;
-		Temp.prev = NULL;
-		//
-		//Temp.filepath = filename;
-		//
+		PList.current = Temp;
+		PList.start = Temp;
+		PList.end = Temp;
+		Temp->next = NULL;
+		Temp->prev = NULL;
 	} else 
-	 {
+	{
 		 if (PList.current == PList.start)
 		 {
-			 PList.start = &Temp;
-			 Temp.prev = NULL;
-			 Temp.next = PList.current;
-			 PList.current->prev = &Temp;
+			 PList.start = Temp;
+			 Temp->prev = NULL;
+			 Temp->next = PList.current;
+			 PList.current->prev = Temp;
+			 PList.current = Temp;
 		 }
 		 else
 		 {
-			 PList.current->prev->next = &Temp;
-			 Temp.prev = PList.current->prev;
-			 PList.current->prev = &Temp;
-			 Temp.next = PList.current;
+			 PList.current->prev->next = Temp;
+			 Temp->prev = PList.current->prev;
+			 PList.current->prev = Temp;
+			 Temp->next = PList.current;
+			 PList.current = Temp;
 		 }
-	 }
+	}
+
+	//change picture
+	this->Center_pic->ImageLocation = s2s(PList.current->picturePath);
+	if (PList.current->next != NULL)
+		this->Right_pic->ImageLocation = s2s(PList.current->next->picturePath);
+	if (PList.current->prev != NULL)
+		this->Left_pic->ImageLocation = s2s(PList.current->prev->picturePath);
+	
+
+	/*this->Right_pic->ImageLocation = s2s(PList.current->next->picturePath);
+	this->Left_pic->ImageLocation = s2s(PList.current->prev->picturePath);*/
+
+
 }
 
 };
