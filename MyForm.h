@@ -5,8 +5,6 @@
 #include <fstream>
 #include "Givin.h"
 
-//#include "Givin.cpp"
-//#include "MyForm.cpp"
 
 System::String^ s2s(std::string  str) 
 {
@@ -45,6 +43,7 @@ namespace Picture_viewer
 
 	//Declare PList, and current_position
 	private:
+		int a;
 		PictureList PList;
 
 
@@ -240,26 +239,42 @@ private: System::Void Left_pic_Click(System::Object^  sender, System::EventArgs^
 }
 private: System::Void Right_pic_Click(System::Object^  sender, System::EventArgs^  e) 
 {
-}
+} 
+
 private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) 
 {
+	if (PList.current == NULL || PList.current->next == NULL)
+	{
+		return;
+	}
 
+	PList.current = PList.current->next;
+
+	//Gives each picture box the image
+	this->Center_pic->ImageLocation = s2s(PList.current->picturePath);
+	this->Right_pic->ImageLocation = s2s(PList.current->next->picturePath);
+	if (PList.current->prev != NULL)
+	{
+		this->Left_pic->ImageLocation = s2s(PList.current->prev->picturePath);
+	}
 }
 private: System::Void Previous_Click(System::Object^  sender, System::EventArgs^  e) 
 {
-	if (PList.current->prev == NULL)
+	if (PList.current == NULL || PList.current->prev == NULL)
 	{
+		return;
+	}
 
-	}else
-	 {
-		 PList.current = PList.current->prev;
-	 }
+	PList.current = PList.current->prev;
 
-	
+	//Gives each picture box the image
 	this->Center_pic->ImageLocation = s2s(PList.current->picturePath);
 	this->Left_pic->ImageLocation = s2s(PList.current->prev->picturePath);
-	this->Right_pic->ImageLocation = s2s(PList.current->next->picturePath);
-
+	if (PList.current->next != NULL)
+	{
+		this->Right_pic->ImageLocation = s2s(PList.current->next->picturePath);
+	}
+	
 	
 	
 
