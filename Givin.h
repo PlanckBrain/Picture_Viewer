@@ -13,6 +13,7 @@ public:
 	PictureNode *start;
 	PictureNode *current;
 	PictureNode *end;
+	PictureNode *temporary;
 public:
 	PictureList();
 	~PictureList();

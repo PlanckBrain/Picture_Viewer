@@ -326,15 +326,61 @@ private: System::Void Add_Click(System::Object^  sender, System::EventArgs^  e)
 	if (PList.current->prev != NULL)
 		this->Left_pic->ImageLocation = s2s(PList.current->prev->picturePath);
 	
-
-	/*this->Right_pic->ImageLocation = s2s(PList.current->next->picturePath);
-	this->Left_pic->ImageLocation = s2s(PList.current->prev->picturePath);*/
-
-
 }
 
 private: System::Void Remove_Click(System::Object^  sender, System::EventArgs^  e) 
 {
+	if (PList.current == NULL)
+	{
+		return;
+	}
+	if (PList.current == PList.start)
+	{
+		if (PList.current->next != NULL)
+		{
+			PList.current->next->prev = NULL;
+			PList.start = PList.current->next;
+			//
+			//Destroy the current picturenode as to not leak memory
+			//
+			PList.current = PList.start;
+		}
+		else
+		{
+			//
+			//Destroy the current picturenode as to not leak memory
+			//
+			PList.start = NULL;
+			PList.current = NULL;
+			PList.end = NULL;
+		}
+
+		return;
+	}
+	if (PList.current == PList.end)
+	{
+		if (PList.current->prev != NULL)
+		{
+			PList.current->prev->next = NULL;
+			PList.end = PList.current->prev;
+			//
+			//Destroy the current picturenode as to not leak memory
+			//
+			PList.current = PList.end;
+		}
+		return;
+	}
+	PList.temporary = PList.current;
+	PList.current = PList.current->next;
+	PList.temporary->next->prev = PList.temporary->prev;
+	PList.temporary->prev->next = PList.temporary->next;
+	//
+	//Delete the picturenode temporary is pointing to.
+	//
+	PList.temporary = NULL;
+	return;
+
+
 }
 };
 }
