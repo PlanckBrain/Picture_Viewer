@@ -82,7 +82,7 @@ namespace Picture_viewer
 
 	private: System::Windows::Forms::Button^  Remove;
 	private: System::Windows::Forms::RichTextBox^  Prolog_box;
-	private: System::Windows::Forms::TextBox^  Txt_newpath;
+
 
 
 
@@ -104,7 +104,6 @@ namespace Picture_viewer
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
 			this->Center_pic = (gcnew System::Windows::Forms::PictureBox());
 			this->Right_pic = (gcnew System::Windows::Forms::PictureBox());
 			this->Left_pic = (gcnew System::Windows::Forms::PictureBox());
@@ -112,7 +111,6 @@ namespace Picture_viewer
 			this->Previous = (gcnew System::Windows::Forms::Button());
 			this->Remove = (gcnew System::Windows::Forms::Button());
 			this->Prolog_box = (gcnew System::Windows::Forms::RichTextBox());
-			this->Txt_newpath = (gcnew System::Windows::Forms::TextBox());
 			this->Add = (gcnew System::Windows::Forms::Button());
 			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Center_pic))->BeginInit();
@@ -122,7 +120,6 @@ namespace Picture_viewer
 			// 
 			// Center_pic
 			// 
-			this->Center_pic->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"Center_pic.Image")));
 			this->Center_pic->Location = System::Drawing::Point(216, 88);
 			this->Center_pic->Name = L"Center_pic";
 			this->Center_pic->Size = System::Drawing::Size(220, 197);
@@ -132,7 +129,6 @@ namespace Picture_viewer
 			// 
 			// Right_pic
 			// 
-			this->Right_pic->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"Right_pic.Image")));
 			this->Right_pic->Location = System::Drawing::Point(522, 200);
 			this->Right_pic->Name = L"Right_pic";
 			this->Right_pic->Size = System::Drawing::Size(91, 85);
@@ -143,7 +139,6 @@ namespace Picture_viewer
 			// 
 			// Left_pic
 			// 
-			this->Left_pic->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"Left_pic.Image")));
 			this->Left_pic->Location = System::Drawing::Point(39, 200);
 			this->Left_pic->Name = L"Left_pic";
 			this->Left_pic->Size = System::Drawing::Size(91, 85);
@@ -180,6 +175,7 @@ namespace Picture_viewer
 			this->Remove->TabIndex = 6;
 			this->Remove->Text = L"Remove";
 			this->Remove->UseVisualStyleBackColor = true;
+			this->Remove->Click += gcnew System::EventHandler(this, &MyForm::Remove_Click);
 			// 
 			// Prolog_box
 			// 
@@ -188,15 +184,6 @@ namespace Picture_viewer
 			this->Prolog_box->Size = System::Drawing::Size(133, 48);
 			this->Prolog_box->TabIndex = 7;
 			this->Prolog_box->Text = L"Author: Duncan Reeves\nDate started: 17/Nov/15\nCP2 C++";
-			// 
-			// Txt_newpath
-			// 
-			this->Txt_newpath->Location = System::Drawing::Point(216, 396);
-			this->Txt_newpath->Name = L"Txt_newpath";
-			this->Txt_newpath->Size = System::Drawing::Size(220, 20);
-			this->Txt_newpath->TabIndex = 8;
-			this->Txt_newpath->Text = L"Insert pathway here";
-			this->Txt_newpath->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			// 
 			// Add
 			// 
@@ -217,7 +204,6 @@ namespace Picture_viewer
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(659, 483);
-			this->Controls->Add(this->Txt_newpath);
 			this->Controls->Add(this->Prolog_box);
 			this->Controls->Add(this->Remove);
 			this->Controls->Add(this->Add);
@@ -232,7 +218,6 @@ namespace Picture_viewer
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Right_pic))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Left_pic))->EndInit();
 			this->ResumeLayout(false);
-			this->PerformLayout();
 
 		}
 #pragma endregion
@@ -289,17 +274,6 @@ private: System::Void Previous_Click(System::Object^  sender, System::EventArgs^
 	}
 	else //Gives an empty box
 		this->Left_pic->ImageLocation = "";
-
-	
-	
-
-
-	//System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
-	//current_position--;
-	//this->Left_pic->ImageLocation = PList.get(current_position-1);
-	//this->Center_pic->ImageLocation = PList.get(current_position);
-	//this->Right_pic->ImageLocation = PList.get(current_position+1);
-
 }
 
 
@@ -307,10 +281,16 @@ private: System::Void Add_Click(System::Object^  sender, System::EventArgs^  e)
 {
 	PictureNode * Temp = new PictureNode();
 
-	//Lets user choose a filepath to a picture, and saves it as a std::string
-	this->openFileDialog1->ShowDialog();
+	//Lets user choose a filepath to a picture.
+	if (openFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::Cancel)
+	{
+		return;
+	}
+
+	//Assigns the picturepath of the picturenode to the converted filepath
 	Temp->picturePath = s2s(this->openFileDialog1->FileName);
-	//Temp.picturePath = s2s(Txt_newpath-> Text);
+
+
 
 	if (PList.current == NULL)
 	{
@@ -353,5 +333,8 @@ private: System::Void Add_Click(System::Object^  sender, System::EventArgs^  e)
 
 }
 
+private: System::Void Remove_Click(System::Object^  sender, System::EventArgs^  e) 
+{
+}
 };
 }
