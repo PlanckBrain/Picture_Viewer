@@ -319,7 +319,7 @@ private: System::Void Add_Click(System::Object^  sender, System::EventArgs^  e)
 		 }
 	}
 
-	//change picture
+	//changes the pictures
 	this->Center_pic->ImageLocation = s2s(PList.current->picturePath);
 	if (PList.current->next != NULL)
 		this->Right_pic->ImageLocation = s2s(PList.current->next->picturePath);
@@ -334,53 +334,61 @@ private: System::Void Remove_Click(System::Object^  sender, System::EventArgs^  
 	{
 		return;
 	}
+
 	if (PList.current == PList.start)
 	{
 		if (PList.current->next != NULL)
 		{
 			PList.current->next->prev = NULL;
 			PList.start = PList.current->next;
-			//
-			//Destroy the current picturenode as to not leak memory
-			//
+			delete(PList.current);
 			PList.current = PList.start;
+			this->Center_pic->ImageLocation = s2s(PList.current->picturePath);
+			if (PList.current->next != NULL)
+				this->Right_pic->ImageLocation = s2s(PList.current->next->picturePath);
+			else
+				this->Right_pic->ImageLocation = "";
+			return;
 		}
 		else
 		{
-			//
-			//Destroy the current picturenode as to not leak memory
-			//
+			delete(PList.current);
 			PList.start = NULL;
 			PList.current = NULL;
 			PList.end = NULL;
+			this->Center_pic->ImageLocation = "";
+			return;
 		}
-
-		return;
 	}
+
 	if (PList.current == PList.end)
 	{
-		if (PList.current->prev != NULL)
-		{
-			PList.current->prev->next = NULL;
-			PList.end = PList.current->prev;
-			//
-			//Destroy the current picturenode as to not leak memory
-			//
-			PList.current = PList.end;
-		}
+		PList.current->prev->next = NULL;
+		PList.end = PList.current->prev;
+		delete(PList.current);
+		PList.current = PList.end;
+		this->Center_pic->ImageLocation = s2s(PList.current->picturePath);
+		this->Left_pic->ImageLocation = s2s(PList.current->prev->picturePath);
 		return;
 	}
+
 	PList.temporary = PList.current;
 	PList.current = PList.current->next;
 	PList.temporary->next->prev = PList.temporary->prev;
 	PList.temporary->prev->next = PList.temporary->next;
-	//
-	//Delete the picturenode temporary is pointing to.
-	//
+	delete(PList.temporary);
 	PList.temporary = NULL;
+	this->Center_pic->ImageLocation = s2s(PList.current->picturePath);
+	if (PList.current->next != NULL)
+		this->Right_pic->ImageLocation = s2s(PList.current->next->picturePath);
+	else
+		this->Right_pic->ImageLocation = "";
+	if (PList.current->prev != NULL)
+		this->Left_pic->ImageLocation = s2s(PList.current->prev->picturePath);
+	else
+		this->Right_pic->ImageLocation = "";
 	return;
-
-
 }
+
 };
 }
