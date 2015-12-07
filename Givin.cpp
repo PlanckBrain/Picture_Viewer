@@ -6,7 +6,6 @@ PictureList::PictureList()
 	start = NULL;
 	current = NULL;
 	end = NULL;
-	temporary = NULL;
 }
 
 PictureList::~PictureList()

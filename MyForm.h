@@ -330,6 +330,8 @@ private: System::Void Add_Click(System::Object^  sender, System::EventArgs^  e)
 
 private: System::Void Remove_Click(System::Object^  sender, System::EventArgs^  e) 
 {
+	PictureNode *temporary = NULL;
+
 	if (PList.current == NULL)
 	{
 		return;
@@ -361,23 +363,29 @@ private: System::Void Remove_Click(System::Object^  sender, System::EventArgs^  
 		}
 	}
 
+	
 	if (PList.current == PList.end)
 	{
+		//No need to check if there is only one picture. because it would have been caught already above
 		PList.current->prev->next = NULL;
 		PList.end = PList.current->prev;
 		delete(PList.current);
 		PList.current = PList.end;
 		this->Center_pic->ImageLocation = s2s(PList.current->picturePath);
-		this->Left_pic->ImageLocation = s2s(PList.current->prev->picturePath);
+		if (PList.current->prev != NULL)
+			this->Left_pic->ImageLocation = s2s(PList.current->prev->picturePath);
+		else
+			this->Left_pic->ImageLocation = "";
 		return;
 	}
 
-	PList.temporary = PList.current;
-	PList.current = PList.current->next;
-	PList.temporary->next->prev = PList.temporary->prev;
-	PList.temporary->prev->next = PList.temporary->next;
-	delete(PList.temporary);
-	PList.temporary = NULL;
+	//When you are neither at the start, nor the end of the linked list
+	temporary = PList.current;
+	PList.current = PList.current->prev;
+	temporary->next->prev = temporary->prev;
+	temporary->prev->next = temporary->next;
+	delete(temporary);
+	temporary = NULL;
 	this->Center_pic->ImageLocation = s2s(PList.current->picturePath);
 	if (PList.current->next != NULL)
 		this->Right_pic->ImageLocation = s2s(PList.current->next->picturePath);
@@ -386,7 +394,7 @@ private: System::Void Remove_Click(System::Object^  sender, System::EventArgs^  
 	if (PList.current->prev != NULL)
 		this->Left_pic->ImageLocation = s2s(PList.current->prev->picturePath);
 	else
-		this->Right_pic->ImageLocation = "";
+		this->Left_pic->ImageLocation = "";
 	return;
 }
 
