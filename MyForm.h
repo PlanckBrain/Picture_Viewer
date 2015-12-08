@@ -222,15 +222,6 @@ namespace Picture_viewer
 		}
 #pragma endregion
 
-
-
-private: System::Void Left_pic_Click(System::Object^  sender, System::EventArgs^  e) 
-{
-}
-private: System::Void Right_pic_Click(System::Object^  sender, System::EventArgs^  e) 
-{
-} 
-
 private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) 
 {
 	if (PList.current == NULL || PList.current->next == NULL)
@@ -241,11 +232,8 @@ private: System::Void button1_Click(System::Object^  sender, System::EventArgs^ 
 	PList.current = PList.current->next;
 
 	//***********Gives each picture box an image***********//
-	//Center picture box
 	this->Center_pic->ImageLocation = s2s(PList.current->picturePath);
-	//Left picture box
 	this->Left_pic->ImageLocation = s2s(PList.current->prev->picturePath);
-	//Right (if able)
 	if (PList.current->next != NULL)
 	{
 		this->Right_pic->ImageLocation = s2s(PList.current->next->picturePath);
@@ -263,11 +251,8 @@ private: System::Void Previous_Click(System::Object^  sender, System::EventArgs^
 	PList.current = PList.current->prev;
 
 	//***********Gives each picture box an image***********//
-	//Center picture box
 	this->Center_pic->ImageLocation = s2s(PList.current->picturePath);
-	//Right picture box
 	this->Right_pic->ImageLocation = s2s(PList.current->next->picturePath);
-	//Left picture box (if able)
 	if (PList.current->prev != NULL)
 	{
 		this->Left_pic->ImageLocation = s2s(PList.current->prev->picturePath);
@@ -287,8 +272,7 @@ private: System::Void Add_Click(System::Object^  sender, System::EventArgs^  e)
 		return;
 	}
 
-	//Assigns the picturepath of the picturenode to the converted filepath
-	Temp->picturePath = s2s(this->openFileDialog1->FileName);
+	Temp->picturePath = s2s(this->openFileDialog1->FileName); //It needs to be a different type of string, so the s2s function is called
 
 
 
